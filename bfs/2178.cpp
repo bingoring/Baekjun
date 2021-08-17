@@ -2,7 +2,7 @@
 using namespace std;
 
 int N, M;
-int mm[100][100] = { 0 };
+int init[100][100] = { 0 };
 bool vis[100][100];
 int cnt[100][100] = { 0 };
 
@@ -22,30 +22,30 @@ void bfs(int x, int y) {
 			int nx = xx + dx[i];
 			int ny = yy + dy[i];
 
-			if (nx >= 0 && nx < N && ny >= 0 && ny < M && !vis[nx][ny] && mm[nx][ny] == 1) {
+			//범위를 넘지 않고 방문하지 않았고 길이 존재한다면
+			if (nx >= 0 && nx < N && ny >= 0 && ny < M && !vis[nx][ny] && init[nx][ny] == 1) {
 				vis[nx][ny] = true;
 				q.push({ nx, ny });
-				cnt[nx][ny] = cnt[xx][yy]+1;
+				cnt[nx][ny] = cnt[xx][yy]+1;	//이전 자리까지의 방문 수 +1
 			}
 		}
 	}
 }
 int main(void) {
-    ios::sync_with_stdio(0);
-	cin.tie(0); //cout.tie(0);
+    //ios::sync_with_stdio(0);
+	//cin.tie(0); //cout.tie(0);
+
 	cin >> N >> M;
 
-	//입력
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
-			scanf("%1d", &mm[i][j]);
+			scanf("%1d", &init[i][j]);
+			//cin >> mm[i][j];	101111이게 한번에 들어감
 		}
 	}
 
-	//수행
 	bfs(0, 0);
 
-	//출력
 	cout << cnt[N - 1][M - 1];
 	
 	return 0;
